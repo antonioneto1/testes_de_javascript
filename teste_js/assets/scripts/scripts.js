@@ -2,15 +2,25 @@ const botao = document.querySelector('#botao_contador');
 
 const resultado = document.querySelectorAll('#resultado')
 
+
 const arr = x => Array.from(x);
+
 const num = x => Number(x) || 0;
+
 const str = x => String(x);
+
 const vazio = xs => xs.length === 0;
+
 const pegar = n => xs => xs.slice(0,n);
+
 const drop = n => xs => xs.slice(n);
+
 const reverse = xs => xs.slice(0).reverse();
+
 const comp = f => g => x => f (g (x));
+
 const not = x => !x;
+
 const fragmento = n => xs =>
   vazio(xs) ? [] : [pegar(n)(xs), ...fragmento (n) (drop (n) (xs))];
 
@@ -26,7 +36,6 @@ botao.addEventListener('click', (e) => {
   else{
     alert('Você precisa digitar um Valor valido para ser calculado')
   }
-  
 })
 
 
@@ -64,13 +73,10 @@ let conversor_de_numeros_em_letras = n => {
     '', '', 'vinte', 'trinta', 'quarenta',
     'cinquenta', 'sessenta', 'setenta', 'oitenta', 'noventa'
   ];
-  let g = [
+  let c = [
     '', 'mil', 'milhao', 'bilhao', 'trilha', 'quatrilhão',
     'quintilhão', 'sextilhão', 'setilhão', 'octilhão', 'nonilhão'
   ];
-
-  // this part is really nasty still
-  // it might edit this again later to show how Monoids could fix this up
 
   let agrupar = ([unidades,dezenas,centena]) => {
     return [
@@ -79,9 +85,9 @@ let conversor_de_numeros_em_letras = n => {
       a[dezenas+unidades] || a[unidades]
     ].join('');
   };
-  // "thousands" constructor; no real good names for this, i guess
-  let milhares = (group,i) => group === '' ? group : `${group} ${g[i]}`;
-  // execute !
+
+  let milhares = (group,i) => group === '' ? group : `${group} ${c[i]}`;
+  
   if (typeof n === 'number') return conversor_de_numeros_em_letras(String(n));
   if (n === '0')             return 'zero';
   return comp (fragmento(3)) (reverse) (arr(n))
